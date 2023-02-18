@@ -76,11 +76,17 @@
               <button type="submit" class="btn btn-primary">Search</button>
           </form>
 
+          <form action="init" method ="POST" data-aos="fade-up" data-aos-delay="200">
+            {% csrf_token %}
+              <button type="submit" class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;초기화&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+              <button onclick = "return printPage();" class = "btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;프린트 출력&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+          </form>
+
           <div class="row gy-4" data-aos="fade-up" data-aos-delay="400">
 
             <div class="col-lg-3 col-6">
               <div class="stats-item text-center w-100 h-100">
-                <span data-purecounter-start="0" data-purecounter-end="0" data-purecounter-duration="1" class="purecounter"></span>
+                <span data-purecounter-start="{{context.total}}" data-purecounter-end="0" data-purecounter-duration="1" class="purecounter"></span>
                 <p>총무게</p>
               </div>
             </div><!-- End Stats Item -->
@@ -115,7 +121,17 @@
 
       </div>
     </div>
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
   </section><!-- End Hero Section -->
+  <div class="container-fluid container-xl d-flex align-items-center justify-content-between" id="result">
+    {{context}}
+  </div>
   </footer><!-- End Footer -->
   <!-- End Footer -->
 
@@ -130,7 +146,21 @@
   <script src="../../static/assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="../../static/assets/vendor/aos/aos.js"></script>
   <script src="../../static/assets/vendor/php-email-form/validate.js"></script>
-
+  <script>
+    var initBodyHTML;
+    function printPage() {
+      window.print();
+    }
+    function beforePrint() {
+      initBodyHtml = document.body.innerHTML;
+      document.body.innerHTML = document.getElementById('result').innerHTML;
+    }
+    function afterPrint() {
+      document.body.innerHTML = initBodyHtml;
+    }
+    window.onbeforeprint = beforePrint;
+    window.onafterprint = afterPrint;
+  </script>
   <!-- Template Main JS File -->
   <script src="../../static/assets/js/main.js"></script>
 

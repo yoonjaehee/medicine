@@ -19,7 +19,10 @@ from calculate import views
 
 urlpatterns = [
     path('admin/',admin.site.urls),
+    path('',views.main),
     path('index/',views.main),
-    path('index/medicine',views.medicine)
+    path('medicine/',views.medicine),
+    path('index/medicine',views.medicine),
+    path('index/init',views.init),
 ]
 
