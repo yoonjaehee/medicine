@@ -1786,7 +1786,6 @@ section {
   padding: 10px;
   border-radius: 10px;
 }
-
 .hero form .form-control {
   padding-top: 18px;
   padding-bottom: 18px;
@@ -1797,18 +1796,15 @@ section {
   border: none !important;
   background: none !important;
 }
-
 .hero form .form-control:hover,
 .hero form .form-control:focus {
   outline: none;
   box-shadow: none;
 }
-
 .hero form .btn-primary {
   background-color: var(--color-primary);
   padding: 15px 30px;
 }
-
 .hero form .btn-primary:hover {
   background-color: #2756ff;
 }
