@@ -54,19 +54,16 @@ def show():
     tex = ""
     total = 0
     res1 = dict(sorted(res.items()))
-    print(res1)
     for i in res1:
         tex += i + ':' + res1[i] + '\n'
         total += float(res1[i])
     ##label['text'] = tex
     ##label2['text'] = total
+    tex += str(total)
     global context
-    context = {
+    context = [
         tex,
-        total,
-    }
-
-
+    ]
 def fid(value):
     global counte
     data4 = (df[df['처방명'] == value])  ## 이름 맞는거 데이터 프레임 찾아버림 + 데이터프레임화
@@ -103,12 +100,16 @@ def fid(value):
 def medicine(request):
     if request.method == 'POST':
         global df
+        global tex
+        global total
         global counte
+        tex = ""
+        total = 0
         counte = 0
         ins = request.POST['medicine_name']
         data = pd.read_csv("./medicine.csv")  ## csv 에서 부름
         df = pd.DataFrame(data)  ## dataframe 만듦
         fid(ins)
         if (counte == 1):
-            messages.warning(request, '결과에 없음')
-        return render(request, 'index.html', {"context": context})
+            messages.warning(request, 'not in result')
+        return render(request, 'index.html', {"context": context[0]})

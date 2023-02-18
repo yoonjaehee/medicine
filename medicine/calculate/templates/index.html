@@ -42,9 +42,19 @@
 
   <!-- ======= Header ======= -->
   <header id="header" class="header d-flex align-items-center fixed-top">
+    {% for message in messages %}
+      <div class="container-fluid p-0">
+        <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="True">&times;</span>
+          </button>
+          {{ message }}
+        </div>
+      </div>
+    {% endfor %}
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-      <a href="" class="logo d-flex align-items-center">
+      <a href="http://127.0.0.1:8000/index/" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="../../static/assets/img/logo.png" alt=""> -->
         <h1>Calculate</h1>
@@ -54,7 +64,7 @@
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="" class="active">Home</a></li>
+          <li><a href="http://127.0.0.1:8000/index/" class="active">Home</a></li>
         </ul>
       </nav><!-- .navbar -->
 
@@ -86,7 +96,7 @@
 
             <div class="col-lg-3 col-6">
               <div class="stats-item text-center w-100 h-100">
-                <span data-purecounter-start="{{context.total}}" data-purecounter-end="0" data-purecounter-duration="1" class="purecounter"></span>
+                <span data-purecounter-start="0" data-purecounter-end="{{context.total}}" data-purecounter-duration="1" class="purecounter"></span>
                 <p>총무게</p>
               </div>
             </div><!-- End Stats Item -->
@@ -114,24 +124,18 @@
 
           </div>
         </div>
-
         <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
           <img src="../../static/assets/img/hero-img.svg" class="img-fluid mb-3 mb-lg-0" alt="">
         </div>
 
       </div>
     </div>
-    {% if messages %}
-    <ul class="messages">
-      {% for message in messages %}
-      <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-      {% endfor %}
-    </ul>
-    {% endif %}
   </section><!-- End Hero Section -->
   <div class="container-fluid container-xl d-flex align-items-center justify-content-between" id="result">
-    {{context}}
+    {{context|linebreaks}}
+    <br>
   </div>
+  {{total}}
   </footer><!-- End Footer -->
   <!-- End Footer -->
 
