@@ -15,7 +15,7 @@ def main(request):
 def init(request):
     global res
     res = {}
-    return redirect('http://127.0.0.1:8000/index/')
+    return redirect('http://13.209.81.79:8000/index/')
 
 
 def find(ins):
