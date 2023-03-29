@@ -8,7 +8,9 @@ from django.http import FileResponse
 from reportlab.pdfgen import canvas
 def main(request):
     global res
+    global name
     res = {}
+    name = ""
     return render(request, 'index.html')
 
 
@@ -95,14 +97,13 @@ def fid(value):
             for t in i:
                 find(t)
     show()
-
-
 def medicine(request):
     if request.method == 'POST':
         global df
         global tex
         global total
         global counte
+        global name
         tex = ""
         total = 0
         counte = 0
@@ -110,6 +111,9 @@ def medicine(request):
         data = pd.read_csv("./medicine.csv")  ## csv 에서 부름
         df = pd.DataFrame(data)  ## dataframe 만듦
         fid(ins)
+        temp = name
+        name+=("+"+ins)
         if (counte == 1):
             messages.warning(request, 'not in result')
-        return render(request, 'index.html', {"context": context[0]})
+            name = temp
+        return render(request, 'index.html', {"context": context[0],"name":name})
